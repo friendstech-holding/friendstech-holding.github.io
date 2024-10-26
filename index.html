@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FriendsTech Holding - Innovación Digital Colaborativa</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+        }
+
+        .card-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);
+        }
+
+        .hover-scale {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hover-scale:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .blob-shape {
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .nav-blur {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        @media (max-width: 768px) {
+            .mobile-nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: white;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .mobile-nav.active {
+                transform: translateX(0);
+            }
+        }
+
+        .scroll-indicator {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-30px); }
+            60% { transform: translateY(-15px); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navbar con efecto blur -->
+    <nav class="fixed w-full z-50 nav-blur">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <svg class="h-8 w-8 text-blue-600" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 5L30 15L20 25L10 15L20 5Z" fill="currentColor"/>
+                        <path d="M20 15L30 25L20 35L10 25L20 15Z" fill="currentColor" fill-opacity="0.5"/>
+                    </svg>
+                    <span class="ml-2 text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">FriendsTech</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#vision" class="text-gray-600 hover:text-blue-600 transition-colors duration-300">Visión</a>
+                    <a href="#valores" class="text-gray-600 hover:text-blue-600 transition-colors duration-300">Valores</a>
+                    <a href="#proyectos" class="text-gray-600 hover:text-blue-600 transition-colors duration-300">Proyectos</a>
+                    <a href="#unete" class="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300">Únete</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section con ilustración -->
+    <header class="pt-32 pb-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h1 class="text-5xl md:text-6xl font-bold leading-tight bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-6">
+                        Innovación Digital Colaborativa
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8">
+                        Construyendo el futuro digital a través de la colaboración y el crecimiento colectivo.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#proyectos" class="px-8 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300 shadow-lg hover:shadow-xl">
+                            Explora Proyectos
+                        </a>
+                        <a href="#vision" class="px-8 py-3 border-2 border-blue-600 text-blue-600 rounded-full hover:bg-blue-50 transition-colors duration-300">
+                            Conoce Más
+                        </a>
+                    </div>
+                </div>
+                <div class="relative" data-aos="fade-left">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-100 to-indigo-100 blur-3xl rounded-full"></div>
+                    <svg class="w-full h-auto relative animate-float" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M200 50C250 50 290 90 290 140C290 190 250 230 200 230C150 230 110 190 110 140C110 90 150 50 200 50Z" fill="#4F46E5" fill-opacity="0.2"/>
+                        <path d="M180 80C230 80 270 120 270 170C270 220 230 260 180 260C130 260 90 220 90 170C90 120 130 80 180 80Z" fill="#2563EB" fill-opacity="0.4"/>
+                        <circle cx="200" cy="140" r="60" fill="#1D4ED8"/>
+                        <path d="M185 125L215 140L185 155Z" fill="white"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Sección Visión -->
+        <section id="vision" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent" data-aos="fade-up">
+                    Nuestra Visión
+                </h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="card-hover rounded-2xl p-8 bg-white shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4">Libertad Financiera</h3>
+                        <p class="text-gray-600">Creamos oportunidades para alcanzar la independencia financiera a través de proyectos innovadores.</p>
+                    </div>
+                    <div class="card-hover rounded-2xl p-8 bg-white shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                        <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4">Trabajo Colaborativo</h3>
+                        <p class="text-gray-600">Fomentamos un ambiente donde el conocimiento se comparte y todos crecemos juntos.</p>
+                    </div>
+                    <div class="card-hover rounded-2xl p-8 bg-white shadow-lg" data-aos="fade-up" data-aos-delay="300">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4">Innovación Constante</h3>
+                        <p class="text-gray-600">Desarrollamos soluciones tecnológicas que transforman industrias y crean valor.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Valores -->
+        <section id="valores" class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent" data-aos="fade-up">
+                    Nuestros Valores
+                </h2>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="relative" data-aos="fade-right">
+                        <svg class="w-full h-auto" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="200" cy="150" r="100" fill="#4F46E5" fill-opacity="0.1"/>
+                            <path d="M150 100L200 150L250 100M150 150L200 200L250 150" stroke="#4F46E5" stroke-width="4"/>
+                        </svg>
+                    </div>
+                    <div class="space-y-8" data-aos="fade-left">
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0">
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2">Equidad</h3>
+                                <p class="text-gray-600">Distribución justa de beneficios basada en la contribución y el compromiso de cada miembro.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0">
+                                <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682

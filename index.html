@@ -5,33 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FriendsTech Holding - Innovación Digital Colaborativa</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
-        body {
-            font-family: 'Poppins', sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
-        .gradient-bg {
-            background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+        html {
+            scroll-behavior: smooth;
         }
 
-        .card-gradient {
-            background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);
+        .gradient-text {
+            background: linear-gradient(135deg, #3B82F6 0%, #6366F1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .hover-scale {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .hero-gradient {
+            background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%);
         }
 
-        .hover-scale:hover {
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        .blob-shape {
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
         }
 
         .animate-float {
@@ -39,176 +44,257 @@
         }
 
         @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
         }
 
-        .nav-blur {
-            backdrop-filter: blur(10px);
-            background-color: rgba(255, 255, 255, 0.8);
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
         }
 
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        .mobile-menu.hidden {
+            transform: translateX(-100%);
         }
 
         @media (max-width: 768px) {
-            .mobile-nav {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: white;
-                transform: translateX(-100%);
-                transition: transform 0.3s ease-in-out;
+            .hero-text {
+                text-align: center;
             }
-
-            .mobile-nav.active {
-                transform: translateX(0);
-            }
-        }
-
-        .scroll-indicator {
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-30px); }
-            60% { transform: translateY(-15px); }
         }
     </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Navbar con efecto blur -->
-    <nav class="fixed w-full z-50 nav-blur">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <svg class="h-8 w-8 text-blue-600" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 5L30 15L20 25L10 15L20 5Z" fill="currentColor"/>
-                        <path d="M20 15L30 25L20 35L10 25L20 15Z" fill="currentColor" fill-opacity="0.5"/>
-                    </svg>
-                    <span class="ml-2 text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">FriendsTech</span>
+<body class="bg-white">
+<!-- Navbar -->
+<nav class="fixed w-full bg-white bg-opacity-90 backdrop-blur-lg z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <div class="flex items-center">
+                <div class="text-2xl font-bold gradient-text">FriendsTech</div>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#inicio" class="text-gray-600 hover:text-blue-600 transition-colors">Inicio</a>
+                <a href="#vision" class="text-gray-600 hover:text-blue-600 transition-colors">Visión</a>
+                <a href="#proyectos" class="text-gray-600 hover:text-blue-600 transition-colors">Proyectos</a>
+                <a href="#unete"
+                   class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors">Únete</a>
+            </div>
+            <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="fixed inset-0 bg-white z-40 mobile-menu hidden md:hidden">
+    <div class="p-4">
+        <button class="absolute top-4 right-4" onclick="toggleMobileMenu()">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <div class="flex flex-col space-y-4 mt-16">
+            <a href="#inicio" class="text-gray-600 hover:text-blue-600 transition-colors text-lg">Inicio</a>
+            <a href="#vision" class="text-gray-600 hover:text-blue-600 transition-colors text-lg">Visión</a>
+            <a href="#proyectos" class="text-gray-600 hover:text-blue-600 transition-colors text-lg">Proyectos</a>
+            <a href="#unete"
+               class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-colors text-center">Únete</a>
+        </div>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<section id="inicio" class="hero-gradient min-h-screen flex items-center pt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="hero-text">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 gradient-text">
+                    Innovación Digital Colaborativa
+                </h1>
+                <p class="text-xl text-gray-600 mb-8">
+                    Construyendo el futuro digital juntos. Un espacio donde la tecnología y el talento se unen para
+                    crear soluciones extraordinarias.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#proyectos"
+                       class="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition-colors text-center">
+                        Explora Proyectos
+                    </a>
+                    <a href="#vision"
+                       class="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-full hover:bg-blue-50 transition-colors text-center">
+                        Conoce Más
+                    </a>
                 </div>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#vision" class="text-gray-600 hover:text-blue-600 transition-colors duration-300">Visión</a>
-                    <a href="#valores" class="text-gray-600 hover:text-blue-600 transition-colors duration-300">Valores</a>
-                    <a href="#proyectos" class="text-gray-600 hover:text-blue-600 transition-colors duration-300">Proyectos</a>
-                    <a href="#unete" class="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300">Únete</a>
+            </div>
+            <div class="relative hidden md:block">
+                <div class="animate-float">
+                    <svg viewBox="0 0 200 200" class="w-full">
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#3B82F6"/>
+                                <stop offset="100%" style="stop-color:#6366F1"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="100" cy="100" r="80" fill="url(#gradient)" opacity="0.2"/>
+                        <circle cx="100" cy="100" r="60" fill="url(#gradient)" opacity="0.4"/>
+                        <circle cx="100" cy="100" r="40" fill="url(#gradient)" opacity="0.6"/>
+                    </svg>
                 </div>
             </div>
         </div>
-    </nav>
+    </div>
+</section>
 
-    <!-- Hero Section con ilustración -->
-    <header class="pt-32 pb-20 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div data-aos="fade-right">
-                    <h1 class="text-5xl md:text-6xl font-bold leading-tight bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-6">
-                        Innovación Digital Colaborativa
-                    </h1>
-                    <p class="text-xl text-gray-600 mb-8">
-                        Construyendo el futuro digital a través de la colaboración y el crecimiento colectivo.
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="#proyectos" class="px-8 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300 shadow-lg hover:shadow-xl">
-                            Explora Proyectos
-                        </a>
-                        <a href="#vision" class="px-8 py-3 border-2 border-blue-600 text-blue-600 rounded-full hover:bg-blue-50 transition-colors duration-300">
-                            Conoce Más
-                        </a>
-                    </div>
-                </div>
-                <div class="relative" data-aos="fade-left">
-                    <div class="absolute inset-0 bg-gradient-to-r from-blue-100 to-indigo-100 blur-3xl rounded-full"></div>
-                    <svg class="w-full h-auto relative animate-float" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M200 50C250 50 290 90 290 140C290 190 250 230 200 230C150 230 110 190 110 140C110 90 150 50 200 50Z" fill="#4F46E5" fill-opacity="0.2"/>
-                        <path d="M180 80C230 80 270 120 270 170C270 220 230 260 180 260C130 260 90 220 90 170C90 120 130 80 180 80Z" fill="#2563EB" fill-opacity="0.4"/>
-                        <circle cx="200" cy="140" r="60" fill="#1D4ED8"/>
-                        <path d="M185 125L215 140L185 155Z" fill="white"/>
+<!-- Visión Section -->
+<section id="vision" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text">Nuestra Visión</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="card bg-white p-8 rounded-2xl shadow-lg">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M13 10V3L4 14h7v7l9-11h-7z"/>
                     </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-4">Libertad Financiera</h3>
+                <p class="text-gray-600">Creamos oportunidades para alcanzar la independencia financiera a través de
+                    proyectos innovadores.</p>
+            </div>
+            <div class="card bg-white p-8 rounded-2xl shadow-lg">
+                <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-6">
+                    <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-4">Colaboración</h3>
+                <p class="text-gray-600">Fomentamos un ambiente donde el conocimiento se comparte y todos crecemos
+                    juntos.</p>
+            </div>
+            <div class="card bg-white p-8 rounded-2xl shadow-lg">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-4">Innovación</h3>
+                <p class="text-gray-600">Desarrollamos soluciones tecnológicas que transforman industrias y crean
+                    valor.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Proyectos Section -->
+<section id="proyectos" class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 gradient-text">Nuestros Proyectos</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="card bg-white rounded-2xl shadow-lg overflow-hidden">
+                <img src="/api/placeholder/600/400" alt="Proyecto Digital" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-4">Transformación Digital</h3>
+                    <p class="text-gray-600">Desarrollamos soluciones innovadoras que impulsan la transformación digital
+                        de las empresas.</p>
+                </div>
+            </div>
+            <div class="card bg-white rounded-2xl shadow-lg overflow-hidden">
+                <img src="/api/placeholder/600/400" alt="Desarrollo Web" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-4">Desarrollo Web</h3>
+                    <p class="text-gray-600">Creamos experiencias web únicas y efectivas para nuestros clientes.</p>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
+</section>
 
-    <main>
-        <!-- Sección Visión -->
-        <section id="vision" class="py-20 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent" data-aos="fade-up">
-                    Nuestra Visión
-                </h2>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="card-hover rounded-2xl p-8 bg-white shadow-lg" data-aos="fade-up" data-aos-delay="100">
-                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-4">Libertad Financiera</h3>
-                        <p class="text-gray-600">Creamos oportunidades para alcanzar la independencia financiera a través de proyectos innovadores.</p>
-                    </div>
-                    <div class="card-hover rounded-2xl p-8 bg-white shadow-lg" data-aos="fade-up" data-aos-delay="200">
-                        <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-4">Trabajo Colaborativo</h3>
-                        <p class="text-gray-600">Fomentamos un ambiente donde el conocimiento se comparte y todos crecemos juntos.</p>
-                    </div>
-                    <div class="card-hover rounded-2xl p-8 bg-white shadow-lg" data-aos="fade-up" data-aos-delay="300">
-                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-4">Innovación Constante</h3>
-                        <p class="text-gray-600">Desarrollamos soluciones tecnológicas que transforman industrias y crean valor.</p>
-                    </div>
-                </div>
+<!-- Únete Section -->
+<section id="unete" class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-8 gradient-text">¿Quieres ser parte de nuestro equipo?</h2>
+        <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+            Buscamos personas apasionadas por la tecnología y el crecimiento colectivo. Únete a nosotros y construyamos
+            juntos el futuro digital.
+        </p>
+        <a href="mailto:info@friendstech.holding"
+           class="inline-block bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition-colors">
+            Contáctanos
+        </a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-xl font-bold mb-4">FriendsTech</h3>
+                <p class="text-gray-400">Construyendo el futuro digital juntos</p>
             </div>
-        </section>
+            <div>
+                <h4 class="font-semibold mb-4">Enlaces</h4>
+                <ul class="space-y-2">
+                    <li><a href="#inicio" class="text-gray-400 hover:text-white transition-colors">Inicio</a></li>
+                    <li><a href="#vision" class="text-gray-400 hover:text-white transition-colors">Visión</a></li>
+                    <li><a href="#proyectos" class="text-gray-400 hover:text-white transition-colors">Proyectos</a></li>
+                    <li><a href="#unete" class="text-gray-400 hover:text-white transition-colors">Únete</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4">Contacto</h4>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="mailto:info@friendstech.holding"
+                           class="text-gray-400 hover:text-white transition-colors flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            contact@friendstech.holding
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            Barcelona, España
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+            <p class="text-gray-400">&copy; 2024 FriendsTech Holding. Todos los derechos reservados.</p>
+        </div>
+    </div>
+</footer>
 
-        <!-- Sección Valores -->
-        <section id="valores" class="py-20 bg-gray-50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent" data-aos="fade-up">
-                    Nuestros Valores
-                </h2>
-                <div class="grid md:grid-cols-2 gap-12">
-                    <div class="relative" data-aos="fade-right">
-                        <svg class="w-full h-auto" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="200" cy="150" r="100" fill="#4F46E5" fill-opacity="0.1"/>
-                            <path d="M150 100L200 150L250 100M150 150L200 200L250 150" stroke="#4F46E5" stroke-width="4"/>
-                        </svg>
-                    </div>
-                    <div class="space-y-8" data-aos="fade-left">
-                        <div class="flex items-start space-x-4">
-                            <div class="flex-shrink-0">
-                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-semibold mb-2">Equidad</h3>
-                                <p class="text-gray-600">Distribución justa de beneficios basada en la contribución y el compromiso de cada miembro.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="flex-shrink-0">
-                                <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
-                                    <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682
+<script>
+    function toggleMobileMenu() {
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenu.classList.toggle('hidden');
+    }
+
+    // Cerrar menú móvil al hacer clic en un enlace
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+        link.addEventListener('click', () => {
+            document.getElementById('mobileMenu').classList.add('hidden');
+        });
+    });
+</script>
+</body>
+</html>
